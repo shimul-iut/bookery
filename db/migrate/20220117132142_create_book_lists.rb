@@ -7,7 +7,8 @@ class CreateBookLists < ActiveRecord::Migration[6.0]
       t.string :unique_id
       t.string :image_url
       t.string :isbn
-      t.belongs_to :genre, null: false, foreign_key: true
+      t.belongs_to :genre, index: true, foregin_key: true
+      t.belongs_to :book_owner, index: true, foregin_key: true
 
       t.timestamps
     end

@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_17_132142) do
+ActiveRecord::Schema.define(version: 2022_01_26_112422) do
+
+  create_table "book_borrowers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "book_list_id"
+    t.integer "book_owners_id"
+    t.integer "borrow_for_days"
+    t.string "has_returned", default: "f"
+    t.string "boolean", default: "f"
+    t.integer "extended_days", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_list_id"], name: "index_book_borrowers_on_book_list_id"
+    t.index ["book_owners_id"], name: "index_book_borrowers_on_book_owners_id"
+    t.index ["user_id"], name: "index_book_borrowers_on_user_id"
+  end
 
   create_table "book_lists", force: :cascade do |t|
     t.string "name"
@@ -19,10 +34,23 @@ ActiveRecord::Schema.define(version: 2022_01_17_132142) do
     t.string "unique_id"
     t.string "image_url"
     t.string "isbn"
-    t.integer "genre_id", null: false
+    t.integer "genre_id"
+    t.integer "book_owner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_owner_id"], name: "index_book_lists_on_book_owner_id"
     t.index ["genre_id"], name: "index_book_lists_on_genre_id"
+  end
+
+  create_table "book_owners", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "book_list_id"
+    t.boolean "is_active", default: true
+    t.boolean "is_borrowed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_list_id"], name: "index_book_owners_on_book_list_id"
+    t.index ["user_id"], name: "index_book_owners_on_user_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -33,5 +61,14 @@ ActiveRecord::Schema.define(version: 2022_01_17_132142) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "book_lists", "genres"
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "company_email"
+    t.string "company_id"
+    t.string "company_role"
+    t.string "phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
 end

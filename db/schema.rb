@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_26_112422) do
+ActiveRecord::Schema.define(version: 2022_02_08_092634) do
 
   create_table "book_borrowers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "book_list_id"
-    t.integer "book_owners_id"
+    t.integer "book_owner_id"
     t.integer "borrow_for_days"
     t.string "has_returned", default: "f"
     t.string "boolean", default: "f"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2022_01_26_112422) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_list_id"], name: "index_book_borrowers_on_book_list_id"
-    t.index ["book_owners_id"], name: "index_book_borrowers_on_book_owners_id"
+    t.index ["book_owner_id"], name: "index_book_borrowers_on_book_owner_id"
     t.index ["user_id"], name: "index_book_borrowers_on_user_id"
   end
 
@@ -57,6 +57,13 @@ ActiveRecord::Schema.define(version: 2022_01_26_112422) do
     t.string "name"
     t.string "slug"
     t.float "popularity_rating"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.string "logtype"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

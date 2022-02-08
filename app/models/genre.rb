@@ -5,4 +5,6 @@ class Genre < ApplicationRecord
     def slugify
         self.slug = name.parameterize
     end
+
+    validates_presence_of :name
 end

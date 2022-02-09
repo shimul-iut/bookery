@@ -1,6 +1,7 @@
 FactoryBot.define do
-    factory :genredo
-        name { Faker::Lorem.word}
-        popularity_rating { Faker.float(2)}
+    factory :genre do
+        name { Faker::Book.genre}
+        #slug { Faker::Book.genre.parameterize}
+        popularity_rating { Faker::Number.decimal(l_digits: 2)}
     end
 end

@@ -1,5 +1,5 @@
 class GenresController < ApplicationController
-    before_action :set_genre, only: [:show]
+    before_action :set_genre, only: [:show, :update]
 
     #GET /genres
     def index
@@ -18,6 +18,11 @@ class GenresController < ApplicationController
         json_response(@genre)
     end
 
+      # PUT /genres/:id
+    def update
+        @genre.update(genre_params)
+        head :no_content
+    end
     private
 
     def genre_params

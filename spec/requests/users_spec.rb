@@ -1,69 +1,66 @@
 require 'rails_helper'
 
-RSpec.describe "Genres API", type: :request do
-    let!(:genres) {create_list(:genre, 10)}
-    let(:genre_id) {genres.first.id}
+RSpec.describe "Users API" , type: :request do
+    let!(:users) {create_list(:user, 10)}
+    let(:user_id) {users.first.id}
 
 
-    describe 'GET /genres' do
-        before {get '/genres'}
-        
-        it 'returns genres' do
-            expect(json).not_to be_empty
-        end
+    describe 'GET /users' do
+        before {get '/users'}
 
-        it 'returns genres' do
-            # Note `json` is a custom helper to parse JSON responses
+        it 'returns users' do
             expect(json).not_to be_empty
             expect(json.size).to eq(10)
         end
-
+        
         it 'returns status code 200' do
             expect(response).to have_http_status(200)
         end
     end
-
-    describe 'GET /genres/:id' do
-        before { get "/genres/#{genre_id}" }
     
-        context 'when the record exists' do
+    describe 'GET /users/:id' do
+        before { get "/users/#{user_id}" }
+        
+        context "when the record exists" do
 
-            it 'returns the genre' do
+            it 'returns the user' do
                 expect(json).not_to be_empty
-                expect(json['id']).to eq(genre_id)
+                expect(json['id']).to eq(user_id)
             end
-    
+
             it 'returns status code 200' do
                 expect(response).to have_http_status(200)
             end
         end
-    
+
         context 'when the record does not exist' do
             
-            let(:genre_id) { 20 }
+            let(:user_id) { 20 }
     
             it 'returns status code 404' do
                 expect(response).to have_http_status(404)
             end
     
             it 'returns a not found message' do
-                expect(response.body).to match(/Couldn't find Genre/)
+                expect(response.body).to match(/Couldn't find User/)
             end
         
         end
     end
 
-      # Test suite for POST /genres
-    describe 'POST /genres' do
+    # Test suite for POST /users
+    describe 'POST /users' do
         # valid payload
-        let(:valid_attributes) { { name: 'Science Fiction', popularity_rating: '4.3' } }
+        let(:valid_attributes) { { name: 'Anik Islam Shimul', company_email: 'anik.shimul@enosisbd.com', company_id: '603', company_role: 'Project Lead', phone: '+8801819458461' } }
+
 
         context 'when the request is valid' do
-            before { post '/genres', params: valid_attributes }
+            before { post '/users', params: valid_attributes }
 
-            it 'creates a genre' do
-                expect(json['name']).to eq('Science Fiction')
-                expect(json['slug']).to eq('science-fiction')
+            it 'creates a user' do
+                expect(json['name']).to eq('Anik Islam Shimul')
+                expect(json['company_email']).to eq('anik.shimul@enosisbd.com')
+                expect(json['company_id']).to eq('603')
             end
 
             it 'returns status code 201' do
@@ -73,7 +70,7 @@ RSpec.describe "Genres API", type: :request do
 
         context 'when the request is invalid' do
 
-            before { post '/genres', params: { title: 'Foobar' } }
+            before { post '/users', params: { fame: 'Sakib' } }
 
             it 'returns status code 422' do
                 expect(response).to have_http_status(422)
@@ -86,21 +83,23 @@ RSpec.describe "Genres API", type: :request do
         end
     end
 
-      # Test suite for PUT /genres/:id
-    describe 'PUT /genres/:id' do
-        let(:valid_attributes) { { title: 'Adventure' } }
-
+        # Test suite for PUT /users/:id
+    describe 'PUT /users/:id' do
+        let(:valid_attributes) { { name: 'Sakib', company_role: 'Project Manager' } }
+    
         context 'when the record exists' do
-            before { put "/genres/#{genre_id}", params: valid_attributes }
-
+        
+            before { put "/users/#{user_id}", params: valid_attributes }
+        
             it 'updates the record' do
                 expect(response.body).to be_empty
             end
-
+        
             it 'returns status code 204' do
                 expect(response).to have_http_status(204)
             end
-        end
+            end
     end
-    
+
 end
+

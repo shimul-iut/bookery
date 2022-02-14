@@ -1,6 +1,5 @@
 FactoryBot.define do
-    factory :book_owners do
-        user_id nil
-        book_list_id nil    
+    factory :book_owner do
+        user_id {nil}  
     end
 end

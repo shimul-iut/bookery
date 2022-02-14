@@ -44,12 +44,10 @@ ActiveRecord::Schema.define(version: 2022_02_08_092634) do
 
   create_table "book_owners", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "book_list_id"
     t.boolean "is_active", default: true
     t.boolean "is_borrowed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_list_id"], name: "index_book_owners_on_book_list_id"
     t.index ["user_id"], name: "index_book_owners_on_user_id"
   end
 

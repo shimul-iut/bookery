@@ -20,7 +20,7 @@ RSpec.describe "Book Lists API" do
             end  
             
             it 'returns all Genre BookLists' do
-                expect(json.size).to eq(1)
+                expect(json.size).to eq(20)
             end
         end
 
@@ -36,32 +36,4 @@ RSpec.describe "Book Lists API" do
             end
         end
     end
-
-    describe '/book_owners/:book_owner_id/book_lists' do
-        before { get "/book_owners/#{book_owner_id}/book_lists" }
-
-        context "When BookOwner exists" do
-            it 'returns status code 200' do
-                expect(response).to have_http_status(200)
-            end  
-            
-            it 'returns all BookOwner BookLists' do
-                expect(json).to eq(20)
-            end
-        end
-
-        context "When BookOwner Does not exist" do
-            let(:book_owner_id) {30}
-
-            it 'returns status code 404' do
-                expect(response).to have_http_status(404)
-            end
-
-            it 'returns a not found message' do
-                expect(response.body).to match(/Couldn't find BookOwner/)
-            end
-        end
-    end
-
-
 end

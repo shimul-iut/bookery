@@ -3,6 +3,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
     create_table :users do |t|
       t.string :name
       t.string :company_email
+      t.string :password_digest
       t.string :company_id
       t.string :company_role, null:true
       t.string :phone

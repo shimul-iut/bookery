@@ -66,7 +66,7 @@ RSpec.describe "Book Owners API" do
                 expect(response).to have_http_status(201)
             end
         end
-  end
+    end
     # describe 'GET /book_owners/:book_owner_id/book_lists' do
     #     before { get "/book_owners/#{book_owner_id}/book_lists" }
 

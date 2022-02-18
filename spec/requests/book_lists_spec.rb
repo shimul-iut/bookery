@@ -36,4 +36,56 @@ RSpec.describe "Book Lists API" do
             end
         end
     end
-end
+
+    # Test suite for POST /genres/:genre_id/book_lists
+    describe 'POST /genres/:genre_id/book_lists' do
+        let(:valid_attributes) { { name: '1984', author: 'G. Orwell', unique_id: 'GH4F3WT3QF32T2L14', image_url: 'https://gas.com', isbn: '56163261551' } }
+
+        before { post "/genres/#{genre_id}/book_lists", params: valid_attributes }
+            context 'when request attributes are valid' do
+
+                it 'returns status code 201' do
+                    expect(response).to have_http_status(201)
+                end
+            end
+        before { post "/genres/#{genre_id}/book_lists", params: {} }
+        
+            context 'when an invalid request' do
+
+                it 'returns status code 422' do
+                    expect(response).to have_http_status(422)
+                end
+
+                it 'returns a failure message' do
+                    expect(response.body).to match(/Validation failed: name can't be blank/)
+                end
+        end
+    end
+
+    describe 'GET /genres/:genre_id/books_lists/:id'
+        before {get "/genres/#{genre_id}/book_lists/#{id}"}
+
+        context 'When Book List item exists' do
+            it 'returns status code 200' do
+                expect(response).to have_http_status(200)
+            end
+        
+            it 'returns the book_list' do
+                expect(json['id']).to eq(id)
+            end
+        end
+    
+
+        context 'when Booklist item does not exist' do
+            let(:id) { 0 }
+    
+            it 'returns status code 404' do
+                expect(response).to have_http_status(404)
+            end
+    
+            it 'returns a not found message' do
+                expect(response.body).to match(/Couldn't find BookList/)
+            end
+        end
+    end
+#end

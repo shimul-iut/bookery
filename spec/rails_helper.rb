@@ -44,7 +44,9 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
 
-  config.include RequestSpecHelper, type: :request
+  #config.include RequestSpecHelper, type: :request
+  config.include RequestSpecHelper
+  config.include ControllerSpecHelper
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -80,10 +82,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
   end
-
-  config.include RequestSpecHelper
-  config.include ControllerSpecHelper
-
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run

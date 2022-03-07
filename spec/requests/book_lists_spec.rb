@@ -12,7 +12,7 @@ RSpec.describe "Book Lists API" do
     let(:id) { book_lists.first.id }
 
     describe 'GET /genres/:genre_id/book_lists' do
-        before { get "/genres/#{genre_id}/book_lists" }
+        before { get "/genres/#{genre_id}/book_lists", params: {}, headers: headers }
         
         context "When Genre exists" do
             it 'returns status code 200' do
@@ -41,7 +41,7 @@ RSpec.describe "Book Lists API" do
     describe 'POST /genres/:genre_id/book_lists' do
         let(:valid_attributes) { { name: '1984', author: 'G. Orwell', unique_id: 'GH4F3WT3QF32T2L14', image_url: 'https://gas.com', isbn: '56163261551' } }
 
-        before { post "/genres/#{genre_id}/book_lists", params: valid_attributes }
+        before { post "/genres/#{genre_id}/book_lists", params: valid_attributes, headers: headers }
             context 'when request attributes are valid' do
 
                 it 'returns status code 201' do
@@ -63,7 +63,7 @@ RSpec.describe "Book Lists API" do
     end
 
     describe 'GET /genres/:genre_id/books_lists/:id'
-        before {get "/genres/#{genre_id}/book_lists/#{id}"}
+        before {get "/genres/#{genre_id}/book_lists/#{id}", params: {}, headers: headers}
 
         context 'When Book List item exists' do
             it 'returns status code 200' do

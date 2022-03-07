@@ -12,7 +12,7 @@ RSpec.describe "Book Owners API" do
     #let(:id) { book_lists.first.id }
     
     describe 'GET /book_owners' do
-        before { get "/book_owners" }
+        before { get "/book_owners" , params: {}, headers: headers}
 
         context "When BookOwner exists" do
             it 'returns status code 200' do
@@ -27,7 +27,7 @@ RSpec.describe "Book Owners API" do
     end
 
     describe 'GET /book_owners/:id' do
-        before { get "/book_owners/#{book_owner_id}" }
+        before { get "/book_owners/#{book_owner_id}", params: {}, headers: headers }
 
         context "When BookOwner with ID exists" do  
             
@@ -56,7 +56,7 @@ RSpec.describe "Book Owners API" do
         let(:valid_attributes) { { user_id: '1'} }
 
         context 'when the request is valid' do
-            before { post '/book_owners', params: valid_attributes}
+            before { post '/book_owners', params: valid_attributes, headers: headers}
 
             it 'creates a book_owner' do
                 expect(json['user_id']).to eq(1)

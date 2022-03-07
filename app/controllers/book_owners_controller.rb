@@ -3,13 +3,13 @@ class BookOwnersController < ApplicationController
     #GET /book_owners/
 
     def index
-        @book_owners = BookOwner.all
+        @book_owners = current_user.book_owners
         json_response(@book_owners)
     end
     
     # POST /book_owners
     def create
-        @book_owner = BookOwner.create!(book_owner_params)
+        @book_owner = current_user.book_owners.create!(book_owner_params)
         json_response(@book_owner, :created)
     end
     
